@@ -20,8 +20,6 @@ We will be using the fully managed PostgreSQL offering in Azure for this demo. I
 * Specify the Server name, e.g., jakartaee-cafe-db-`<your suffix>` (the suffix could be your first name such as "reza"). Create a new resource group named jakartaee-cafe-group-`<your suffix>` (the suffix could be your first name such as "reza"). Specify the login name, e.g., postgres. Specify the password. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Log down server name, login name and password.
 * In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the connection security panel. Enable access to Azure services, disable SSL connection enforcement and then hit Save.
 
-Once you are done exploring the demo, you should delete the jakartaee-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on jakartaee-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription! If you do keep these resources around (for example to begin your own prototype), you should in the least use your own passwords and make the corresponding changes in the demo code.
-
 ## Setup the Kubernetes Cluster
 
 You will first need to create the Kubernetes cluster. Go to the [Azure portal](http://portal.azure.com). Hit Create a resource -> Containers -> Kubernetes Service. Select the resource group to be jakartaee-cafe-group-`<your suffix>`. Specify the cluster name as jakartaee-cafe-cluster-`<your suffix>` (the suffix could be your first name such as "reza"). Hit Review + create. Hit Create.
@@ -66,18 +64,24 @@ You will first need to create the Kubernetes cluster. Go to the [Azure portal](h
 * Replace the `${your.docker.hub.id}` value with your account name in `jakartaee-cafe.yml` file.
 * You can now deploy the application:
 
-   ```bash
-   kubectl create -f jakartaee-cafe.yml
-   ```
+  ```bash
+  kubectl create -f jakartaee-cafe.yml
+  ```
 
+* Get and watch the status of the deployment:
+
+  ```bash
+  kubectl get deployment jakartaee-cafe --watch
+  ```
+
+  It may take a few minutes for the deployment to be completed. Wait until you see `2/2` under the `READY` column and `2` under the `AVAILABLE` column, hit `CTRL-C` to stop the `kubectl` watch process.
 * Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>/jakartaee-cafe`:
 
   ```bash
   kubectl get svc jakartaee-cafe --watch
   ```
 
-  It may take a few minutes for the load balancer to be created. When the external IP changes over from *pending* to a valid IP, just hit Control-C to exit.
-
+  It may take a few minutes for the load balancer to be created. When the external IP changes over from *pending* to a valid IP, just hit `Control-C` to exit.
 * Scale your application:
 
   ```bash
@@ -90,4 +94,10 @@ Delete the application deployment:
 
 ```bash
 kubectl delete -f jakartaee-cafe.yml
+```
+
+Once you are done exploring the demo, you should delete the jakartaee-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on jakartaee-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription. The another option to delete all Azure resources is using `az group delete`:
+
+```bash
+az group delete --name jakartaee-cafe-group-<your suffix> --yes --no-wait
 ```
