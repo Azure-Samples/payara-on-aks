@@ -18,7 +18,7 @@ We will be using the fully managed Azure SQL offering for this sample.
 * Go to the [Azure portal](http://portal.azure.com).
 * Hit Create a resource -> Databases -> SQL Database.
 * Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
-* In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the connection security panel. Enable access to Azure services, disable SSL connection enforcement and then hit Save.
+* In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the Firewalls and virtual networks panel. Enable access to Azure services and hit Save.
 
 ## Setup the Kubernetes Cluster
 
