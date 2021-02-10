@@ -11,13 +11,13 @@ This sample shows how you can deploy a Java application using Payara on the Azur
 * Install [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest&preserve-view=true) 2.0.75 or later.
 * Clone [this repository](https://github.com/Azure-Samples/payara-on-aks) to your local file system.
 
-## Start Managed PostgreSQL on Azure
+## Start Azure SQL
 
-We will be using the fully managed PostgreSQL offering in Azure for this demo. If you have not set it up yet, please do so now.
+We will be using the fully managed Azure SQL offering for this sample.
 
 * Go to the [Azure portal](http://portal.azure.com).
-* Select 'Create a resource'. In the search box, enter and select 'Azure Database for PostgreSQL'. Hit create. Select a single server.
-* Specify the Server name, e.g., jakartaee-cafe-db-`<your suffix>` (the suffix could be your first name such as "reza"). Create a new resource group named jakartaee-cafe-group-`<your suffix>` (the suffix could be your first name such as "reza"). Specify the login name, e.g., postgres. Specify the password. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Log down server name, login name and password.
+* Hit Create a resource -> Databases -> SQL Database.
+* Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
 * In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the connection security panel. Enable access to Azure services, disable SSL connection enforcement and then hit Save.
 
 ## Setup the Kubernetes Cluster
