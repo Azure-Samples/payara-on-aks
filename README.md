@@ -1,6 +1,6 @@
 # Deploying a Java Application with Payara on an Azure Kubernetes Service Cluster
 
-This sample shows how you can deploy a Java application using Payara on the Azure Kubernetes Service.
+This sample shows how you can deploy a Java application using Payara on the Azure Kubernetes Service (AKS).
 
 ## Setup
 
@@ -17,12 +17,12 @@ We will be using the fully managed Azure SQL offering for this sample.
 
 * Go to the [Azure portal](http://portal.azure.com).
 * Hit Create a resource -> Databases -> SQL Database.
-* Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
+* Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit Review + create. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
 * In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the Firewalls and virtual networks panel. Enable access to Azure services and hit Save.
 
-## Setup the Kubernetes Cluster
+## Setup the AKS cluster
 
-You will first need to create the Kubernetes cluster. Go to the [Azure portal](http://portal.azure.com). Hit Create a resource -> Containers -> Kubernetes Service. Select the resource group to be jakartaee-cafe-group-`<your suffix>`. Specify the cluster name as jakartaee-cafe-cluster-`<your suffix>` (the suffix could be your first name such as "reza"). Hit Review + create. Hit Create.
+You will now need to create the AKS cluster. Go to the [Azure portal](http://portal.azure.com). Hit Create a resource -> Containers -> Kubernetes Service. Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the cluster name as payara-cafe-cluster-`<your suffix>`. Hit Review + create. Hit Create.
 
 ## Setup Kubernetes Tooling
 
