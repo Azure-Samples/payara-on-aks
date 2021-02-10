@@ -5,7 +5,7 @@ This sample shows how you can deploy a Java application using Payara on the Azur
 ## Setup
 
 * You will need an Azure subscription. If you don't have one, you can get one for free for one year [here](https://azure.microsoft.com/free).
-* Install a Java SE implementation (for example, [Azul Zulu Java 11 LTS](https://www.azul.com/downloads/zulu-community/?version=java-11-lts&package=jdk)).
+* Install a Java SE implementation (for example, [Azul Zulu Java 8 LTS](https://www.azul.com/downloads/zulu-community/?version=java-8-lts&package=jdk)).
 * Install [Maven](https://maven.apache.org/download.cgi) 3.5.0 or higher.
 * Install [Docker](https://docs.docker.com/get-docker/) for your OS.
 * Install [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest&preserve-view=true) 2.0.75 or later.
@@ -47,7 +47,7 @@ You will now need to create the AKS cluster. Go to the [Azure portal](http://por
   mvn clean install --file payara-cafe/pom.xml
   ```
 
-* Download [postgresql-42.2.4.jar](https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.4/postgresql-42.2.4.jar) and put it to current working directory.
+* Download [mssql-jdbc-9.2.0.jre8.jar](https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/9.2.0.jre8/mssql-jdbc-9.2.0.jre8.jar) and put it to current working directory.
 * Log in to Docker Hub using the docker login command:
 
   ```bash
