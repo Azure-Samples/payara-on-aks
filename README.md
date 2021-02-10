@@ -37,14 +37,14 @@ You will now need to create the AKS cluster. Go to the [Azure portal](http://por
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
 * You need to have docker cli installed and you must be signed into your Docker Hub account. To create a Docker Hub account go to [https://hub.docker.com](https://hub.docker.com).
 
-## Deploy the Java EE Application on Kubernetes
+## Deploy the Java Application on AKS
 
 * Open a terminal. Navigate to where you have this repository code in your file system.
-* Open `jakartaee-cafe/src/main/webapp/WEB-INF/web.xml` in a text editor. Replace `${server.name}` with `Server name`, replace  `${login.name}` with `login name`, and replace `${password}` with `password`.
-* Do a full build of the jakartaee-cafe application via Maven
+* Open `payara-cafe/src/main/webapp/WEB-INF/web.xml` in a text editor. Replace `${server.name}` with `Server name`, replace  `${login.name}` with `admin login name`, and replace `${password}` with `password`.
+* Do a full build of the payara-cafe application via Maven.
 
   ```bash
-  mvn clean install --file jakartaee-cafe/pom.xml
+  mvn clean install --file payara-cafe/pom.xml
   ```
 
 * Download [postgresql-42.2.4.jar](https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.4/postgresql-42.2.4.jar) and put it to current working directory.
@@ -57,47 +57,36 @@ You will now need to create the AKS cluster. Go to the [Azure portal](http://por
 * Build a Docker image and push the image to Docker Hub:
 
   ```bash
-  docker build -t <your Docker Hub ID>/jakartaee-cafe:v1 .
-  docker push <your Docker Hub ID>/jakartaee-cafe:v1
+  docker build -t <your Docker Hub ID>/payara-cafe:v1 .
+  docker push <your Docker Hub ID>/payara-cafe:v1
   ```
 
-* Replace the `${your.docker.hub.id}` value with your account name in `jakartaee-cafe.yml` file.
+* Replace the `${your.docker.hub.id}` value with your account name in `payara-cafe.yml` file.
 * You can now deploy the application:
 
   ```bash
-  kubectl create -f jakartaee-cafe.yml
+  kubectl create -f payara-cafe.yml
   ```
 
 * Get and watch the status of the deployment:
 
   ```bash
-  kubectl get deployment jakartaee-cafe --watch
+  kubectl get deployment payara-cafe --watch
   ```
 
   It may take a few minutes for the deployment to be completed. Wait until you see `2/2` under the `READY` column and `2` under the `AVAILABLE` column, hit `CTRL-C` to stop the `kubectl` watch process.
-* Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>/jakartaee-cafe`:
+* Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>/payara-cafe`:
 
   ```bash
-  kubectl get svc jakartaee-cafe --watch
+  kubectl get svc payara-cafe --watch
   ```
 
   It may take a few minutes for the load balancer to be created. When the external IP changes over from *pending* to a valid IP, just hit `Control-C` to exit.
-* Scale your application:
-
-  ```bash
-  kubectl scale deployment jakartaee-cafe --replicas=3
-  ```
 
 ## Deleting the Resources
 
-Delete the application deployment:
+Once you are done exploring the sample, you should delete the payara-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on payara-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription. The another option to delete Azure resources is using `az group delete`:
 
 ```bash
-kubectl delete -f jakartaee-cafe.yml
-```
-
-Once you are done exploring the demo, you should delete the jakartaee-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on jakartaee-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription. The another option to delete all Azure resources is using `az group delete`:
-
-```bash
-az group delete --name jakartaee-cafe-group-<your suffix> --yes --no-wait
+az group delete --name payara-cafe-group-<your suffix> --yes --no-wait
 ```
