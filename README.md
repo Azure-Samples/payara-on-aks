@@ -28,10 +28,10 @@ You will now need to create the AKS cluster. Go to the [Azure portal](http://por
 
 * You will now need to setup kubectl. [Here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) are instructions on how to do that.
 * Next you will install the Azure CLI. [Here](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) are instructions on how to do that.
-* You will then connect kubectl to the Kubernetes cluster you created. To do so, run the following command:
+* You will then connect kubectl to the AKS cluster you created. To do so, run the following command:
 
   ```bash
-  az aks get-credentials --resource-group jakartaee-cafe-group-<your suffix> --name jakartaee-cafe-cluster-<your suffix>
+  az aks get-credentials --resource-group payara-cafe-group-<your suffix> --name payara-cafe-cluster-<your suffix>
   ```
 
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
