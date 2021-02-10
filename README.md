@@ -1,11 +1,11 @@
-# Deploying a Jakarta EE application inside Payara server on an Azure Kubernetes Service cluster
+# Deploying a Java Application with Payara on an Azure Kubernetes Service Cluster
 
-This demo shows how you can deploy a Jakarta EE application to Azure using Docker and Kubernetes. The following is how you run the demo.
+This sample shows how you can deploy a Java application using Payara on the Azure Kubernetes Service.
 
 ## Setup
 
 * You will need an Azure subscription. If you don't have one, you can get one for free for one year [here](https://azure.microsoft.com/free).
-* Install a Java SE implementation (for example, [AdoptOpenJDK OpenJDK 8 LTS/OpenJ9](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=openj9)).
+* Install a Java SE implementation (for example, [Azul Zulu Java 11 LTS](https://www.azul.com/downloads/zulu-community/?version=java-11-lts&package=jdk)).
 * Install [Maven](https://maven.apache.org/download.cgi) 3.5.0 or higher.
 * Install [Docker](https://docs.docker.com/get-docker/) for your OS.
 * Install [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest&preserve-view=true) 2.0.75 or later.
