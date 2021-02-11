@@ -42,26 +42,25 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
 * You will then connect kubectl to the AKS cluster you created. To do so, run the following command:
 
   ```bash
-  az aks get-credentials --resource-group payara-cafe-group-<your suffix> --name payara-cafe-cluster-<your suffix>
+  az aks get-credentials --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME
   ```
 
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
 
 ## Set up an ACR instance
 
-You will need to next create an Azure Container Registry (ACR) instance to publish Docker images.
+You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
 
-* Go to the [Azure portal](http://portal.azure.com). 
-* Hit Create a resource -> Containers -> Container Registry. 
-* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the registry name as payaracaferegistry`<your suffix>`. Hit Review + create. Hit Create.
+  ```bash
+  REGISTRY_NAME=payaracaferegistry<your suffix>
+  az acr create --resource-group $RESOURCE_GROUP_NAME --name $REGISTRY_NAME --sku Basic --admin-enabled  
+  ```
 
 ## Connect to the ACR instance
 
 You will need to sign in to the ACR instance before you can push a Docker image to it. Run the following commands to connect to ACR:
 
 ```bash
-REGISTRY_NAME=payaracaferegistry<your suffix>
-az acr update -n $REGISTRY_NAME --admin-enabled true
 LOGIN_SERVER=$(az acr show -n $REGISTRY_NAME --query 'loginServer' -o tsv)
 USER_NAME=$(az acr credential show -n $REGISTRY_NAME --query 'username' -o tsv)
 PASSWORD=$(az acr credential show -n $REGISTRY_NAME --query 'passwords[0].value' -o tsv)
