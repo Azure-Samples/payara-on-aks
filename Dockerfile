@@ -1,4 +1,4 @@
-FROM payara/server-full
+FROM payara/micro
 COPY payara-cafe/target/payara-cafe.war $DEPLOY_DIR
 COPY mssql-jdbc-9.2.0.jre8.jar /tmp
-RUN echo 'add-library /tmp/mssql-jdbc-9.2.0.jre8.jar' > $POSTBOOT_COMMANDS
+CMD ["--contextRoot", "/payara-cafe", "--addLibs", "/tmp/mssql-jdbc-9.2.0.jre8.jar", "--clustermode", "kubernetes", "/opt/payara/deployments/payara-cafe.war"]
