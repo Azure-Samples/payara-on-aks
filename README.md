@@ -56,6 +56,7 @@ You will need to sign in to the ACR instance before you can push a Docker image 
 
 ```bash
 REGISTRY_NAME=payaracaferegistry<your suffix>
+az acr update -n $REGISTRY_NAME --admin-enabled true
 LOGIN_SERVER=$(az acr show -n $REGISTRY_NAME --query 'loginServer' -o tsv)
 USER_NAME=$(az acr credential show -n $REGISTRY_NAME --query 'username' -o tsv)
 PASSWORD=$(az acr credential show -n $REGISTRY_NAME --query 'passwords[0].value' -o tsv)
