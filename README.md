@@ -86,6 +86,12 @@ You should see `Login Succeeded` at the end of command output if you have logged
   az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .  
   ```
 
+* Create a pull secret so that the AKS cluster is authenticated to pull image from the ACR instance:
+
+  ```bash
+  kubectl create secret docker-registry acr-secret --docker-server=${LOGIN_SERVER} --docker-username=${USER_NAME} --docker-password=${PASSWORD}
+  ```
+
 * Replace the `${your.docker.hub.id}` value with your account name in `payara-cafe.yml` file.
 * You can now deploy the application:
 
