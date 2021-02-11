@@ -49,6 +49,21 @@ You will need to next create an Azure Container Registry (ACR) instance to publi
 * Hit Create a resource -> Containers -> Container Registry. 
 * Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the registry name as payaracaferegistry`<your suffix>`. Hit Review + create. Hit Create.
 
+## Connect to the ACR instance
+
+You will need to sign in to the ACR instance before you can push a Docker image to it. Run the following commands to connect to ACR:
+
+```bash
+REGISTRY_NAME=payaracaferegistry<your suffix>
+LOGIN_SERVER=$(az acr show -n $REGISTRY_NAME --query 'loginServer' -o tsv)
+USER_NAME=$(az acr credential show -n $REGISTRY_NAME --query 'username' -o tsv)
+PASSWORD=$(az acr credential show -n $REGISTRY_NAME --query 'passwords[0].value' -o tsv)
+
+docker login $LOGIN_SERVER -u $USER_NAME -p $PASSWORD
+```
+
+You should see `Login Succeeded` at the end of command output if you have logged into the ACR instance successfully.
+
 ## Deploy the Java Application on AKS
 
 * Open a terminal. Navigate to where you have this repository code in your file system.
