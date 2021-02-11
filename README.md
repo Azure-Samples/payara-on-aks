@@ -80,17 +80,10 @@ You should see `Login Succeeded` at the end of command output if you have logged
   ```
 
 * Download [mssql-jdbc-9.2.0.jre8.jar](https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/9.2.0.jre8/mssql-jdbc-9.2.0.jre8.jar) and put it to current working directory.
-* Log in to Docker Hub using the docker login command:
+* Build a Docker image and push the image to ACR:
 
   ```bash
-  docker login
-  ```
-
-* Build a Docker image and push the image to Docker Hub:
-
-  ```bash
-  docker build -t <your Docker Hub ID>/payara-cafe:v1 .
-  docker push <your Docker Hub ID>/payara-cafe:v1
+  az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .  
   ```
 
 * Replace the `${your.docker.hub.id}` value with your account name in `payara-cafe.yml` file.
