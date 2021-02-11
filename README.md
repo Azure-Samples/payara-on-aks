@@ -21,6 +21,29 @@ We will be using the fully managed Azure SQL offering for this sample.
 * Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit Review + create. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
 * In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the Firewalls and virtual networks panel. Enable access to Azure services and hit Save.
 
+## Set up an ACR instance
+
+You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
+
+  ```bash
+  REGISTRY_NAME=payaracaferegistry<your suffix>
+  az acr create --resource-group $RESOURCE_GROUP_NAME --name $REGISTRY_NAME --sku Basic --admin-enabled  
+  ```
+
+## Connect to the ACR instance
+
+You will need to sign in to the ACR instance before you can push a Docker image to it. Run the following commands to connect to ACR:
+
+```bash
+LOGIN_SERVER=$(az acr show -n $REGISTRY_NAME --query 'loginServer' -o tsv)
+USER_NAME=$(az acr credential show -n $REGISTRY_NAME --query 'username' -o tsv)
+PASSWORD=$(az acr credential show -n $REGISTRY_NAME --query 'passwords[0].value' -o tsv)
+
+docker login $LOGIN_SERVER -u $USER_NAME -p $PASSWORD
+```
+
+You should see `Login Succeeded` at the end of command output if you have logged into the ACR instance successfully.
+
 ## Setup the AKS cluster
 
 You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
@@ -46,29 +69,6 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
   ```
 
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
-
-## Set up an ACR instance
-
-You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
-
-  ```bash
-  REGISTRY_NAME=payaracaferegistry<your suffix>
-  az acr create --resource-group $RESOURCE_GROUP_NAME --name $REGISTRY_NAME --sku Basic --admin-enabled  
-  ```
-
-## Connect to the ACR instance
-
-You will need to sign in to the ACR instance before you can push a Docker image to it. Run the following commands to connect to ACR:
-
-```bash
-LOGIN_SERVER=$(az acr show -n $REGISTRY_NAME --query 'loginServer' -o tsv)
-USER_NAME=$(az acr credential show -n $REGISTRY_NAME --query 'username' -o tsv)
-PASSWORD=$(az acr credential show -n $REGISTRY_NAME --query 'passwords[0].value' -o tsv)
-
-docker login $LOGIN_SERVER -u $USER_NAME -p $PASSWORD
-```
-
-You should see `Login Succeeded` at the end of command output if you have logged into the ACR instance successfully.
 
 ## Deploy the Java Application on AKS
 
