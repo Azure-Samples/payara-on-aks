@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jakartaee-cafe
+  name: payara-cafe
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: jakartaee-cafe
+      app: payara-cafe
   replicas: 2
   template:
     metadata:
-      name: jakartaee-cafe
+      name: payara-cafe
       labels:
-        app: jakartaee-cafe
+        app: payara-cafe
     spec:
       containers:
-      - name: jakartaee-cafe
-        image: ${your.docker.hub.id}/jakartaee-cafe:v1
+      - name: payara-cafe
+        image: ${your.docker.hub.id}/payara-cafe:v1
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: jakartaee-cafe
+  name: payara-cafe
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
   selector:
-    app: jakartaee-cafe
+    app: payara-cafe

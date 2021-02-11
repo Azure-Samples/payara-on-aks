@@ -1,4 +1,4 @@
 FROM payara/server-full
-COPY jakartaee-cafe/target/jakartaee-cafe.war $DEPLOY_DIR
-COPY postgresql-42.2.4.jar /tmp
-RUN echo 'add-library /tmp/postgresql-42.2.4.jar' > $POSTBOOT_COMMANDS
+COPY payara-cafe/target/payara-cafe.war $DEPLOY_DIR
+COPY mssql-jdbc-9.2.0.jre8.jar /tmp
+RUN echo 'add-library /tmp/mssql-jdbc-9.2.0.jre8.jar' > $POSTBOOT_COMMANDS
