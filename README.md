@@ -92,7 +92,7 @@ You should see `Login Succeeded` at the end of command output if you have logged
   kubectl create secret docker-registry acr-secret --docker-server=${LOGIN_SERVER} --docker-username=${USER_NAME} --docker-password=${PASSWORD}
   ```
 
-* Replace the `${your.docker.hub.id}` value with your account name in `payara-cafe.yml` file.
+* Replace the `${login.server}` value with your ACR server URL (stored in the $LOGIN_SERVER variable used previously) in `payara-cafe.yml` file.
 * You can now deploy the application:
 
   ```bash
