@@ -73,7 +73,7 @@ public class Cafe implements Serializable {
               + inetAddress.getHostName()
               + ":"
               + FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort()
-              + "/jakartaee-cafe/rest/coffees";
+              + "/payara-cafe/rest/coffees";
       this.client = ClientBuilder.newClient();
       this.getAllCoffees();
     } catch (IllegalArgumentException
