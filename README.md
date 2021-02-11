@@ -28,7 +28,7 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
   ```bash
   RESOURCE_GROUP_NAME=payara-cafe-group-<your suffix>
   CLUSTER_NAME=payara-cafe-cluster-<your suffix>
-  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity
+  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME
   ```
 
 ## Set up Kubernetes tooling
