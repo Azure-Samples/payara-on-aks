@@ -28,14 +28,6 @@ You will now need to create the AKS cluster.
 * Hit Create a resource -> Containers -> Kubernetes Service.
 * Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the cluster name as payara-cafe-cluster-`<your suffix>`. Hit Review + create. Hit Create.
 
-## Set up an ACR instance
-
-You will need to next create an Azure Container Registry (ACR) instance to publish Docker images.
-
-* Go to the [Azure portal](http://portal.azure.com). 
-* Hit Create a resource -> Containers -> Container Registry. 
-* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the registry name as payaracaferegistry`<your suffix>`. Hit Review + create. Hit Create.
-
 ## Set up Kubernetes tooling
 
 * You will now need to setup kubectl. [Here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) are instructions on how to do that.
@@ -48,6 +40,14 @@ You will need to next create an Azure Container Registry (ACR) instance to publi
 
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
 * You need to have docker cli installed and you must be signed into your Docker Hub account. To create a Docker Hub account go to [https://hub.docker.com](https://hub.docker.com).
+
+## Set up an ACR instance
+
+You will need to next create an Azure Container Registry (ACR) instance to publish Docker images.
+
+* Go to the [Azure portal](http://portal.azure.com). 
+* Hit Create a resource -> Containers -> Container Registry. 
+* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the registry name as payaracaferegistry`<your suffix>`. Hit Review + create. Hit Create.
 
 ## Deploy the Java Application on AKS
 
