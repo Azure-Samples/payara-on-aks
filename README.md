@@ -31,8 +31,12 @@ You will now need to create the AKS cluster.
 
 ## Set up Kubernetes tooling
 
-* You will now need to setup kubectl. [Here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) are instructions on how to do that.
-* Next you will install the Azure CLI. [Here](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) are instructions on how to do that.
+* You will now need to install the Azure CLI. [Here](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) are instructions on how to do that.
+* You will need to setup kubectl, the Kubernetes command-line client. Execute the following command to do so:
+
+  ```bash
+  az aks install-cli
+  ```
 * You will then connect kubectl to the AKS cluster you created. To do so, run the following command:
 
   ```bash
@@ -40,7 +44,6 @@ You will now need to create the AKS cluster.
   ```
 
   If you get an error about an already existing resource, you may need to delete the ~/.kube directory.
-* You need to have docker cli installed and you must be signed into your Docker Hub account. To create a Docker Hub account go to [https://hub.docker.com](https://hub.docker.com).
 
 ## Set up an ACR instance
 
