@@ -23,11 +23,13 @@ We will be using the fully managed Azure SQL offering for this sample.
 
 ## Setup the AKS cluster
 
-You will now need to create the AKS cluster.
+You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
 
-* Go to the [Azure portal](http://portal.azure.com). 
-* Hit Create a resource -> Containers -> Kubernetes Service.
-* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the cluster name as payara-cafe-cluster-`<your suffix>`. Hit Review + create. Hit Create.
+  ```bash
+  RESOURCE_GROUP_NAME=payara-cafe-group-<your suffix>
+  CLUSTER_NAME=payara-cafe-cluster-<your suffix>
+  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity
+  ```
 
 ## Set up Kubernetes tooling
 
