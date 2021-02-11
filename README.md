@@ -22,9 +22,21 @@ We will be using the fully managed Azure SQL offering for this sample.
 
 ## Setup the AKS cluster
 
-You will now need to create the AKS cluster. Go to the [Azure portal](http://portal.azure.com). Hit Create a resource -> Containers -> Kubernetes Service. Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the cluster name as payara-cafe-cluster-`<your suffix>`. Hit Review + create. Hit Create.
+You will now need to create the AKS cluster.
 
-## Setup Kubernetes Tooling
+* Go to the [Azure portal](http://portal.azure.com). 
+* Hit Create a resource -> Containers -> Kubernetes Service.
+* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the cluster name as payara-cafe-cluster-`<your suffix>`. Hit Review + create. Hit Create.
+
+## Set up an ACR instance
+
+You will need to next create an Azure Container Registry (ACR) instance to publish Docker images.
+
+* Go to the [Azure portal](http://portal.azure.com). 
+* Hit Create a resource -> Containers -> Container Registry. 
+* Select the resource group to be payara-cafe-group-`<your suffix>`. Specify the registry name as payaracaferegistry`<your suffix>`. Hit Review + create. Hit Create.
+
+## Set up Kubernetes tooling
 
 * You will now need to setup kubectl. [Here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) are instructions on how to do that.
 * Next you will install the Azure CLI. [Here](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) are instructions on how to do that.
