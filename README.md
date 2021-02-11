@@ -40,7 +40,7 @@ You will now need to create the AKS cluster. Go to the [Azure portal](http://por
 ## Deploy the Java Application on AKS
 
 * Open a terminal. Navigate to where you have this repository code in your file system.
-* Open `payara-cafe/src/main/webapp/WEB-INF/web.xml` in a text editor. Replace `${server.name}` with `Server name`, replace  `${login.name}` with `admin login name`, and replace `${password}` with `password`.
+* Open `payara-cafe/src/main/webapp/WEB-INF/web.xml` in a text editor. Replace `${server.name}` with `server name`, replace  `${login.name}` with `admin login name`, and replace `${password}` with `password`.
 * Do a full build of the payara-cafe application via Maven.
 
   ```bash
