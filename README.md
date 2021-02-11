@@ -4,6 +4,7 @@ This sample shows how you can deploy a Java application using Payara on the Azur
 
 ## Setup
 
+* Prepare a local machine with a Unix-like operating system installed (for example, Ubuntu, macOS, Windows Subsystem for Linux).
 * You will need an Azure subscription. If you don't have one, you can get one for free for one year [here](https://azure.microsoft.com/free).
 * Install a Java SE implementation (for example, [Azul Zulu Java 8 LTS](https://www.azul.com/downloads/zulu-community/?version=java-8-lts&package=jdk)).
 * Install [Maven](https://maven.apache.org/download.cgi) 3.5.0 or higher.
