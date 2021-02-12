@@ -146,6 +146,8 @@ The sample application is stateful and highly available through Payara Kubernete
   ```bash
   kubectl get ingress
   ```
+  
+  It may take a moment for the App Gateway to properly connect with the backend pool. It is a good idea to check the Backend health panel for the App Gateway in the portal.
 
 ## Deleting the Resources
 
