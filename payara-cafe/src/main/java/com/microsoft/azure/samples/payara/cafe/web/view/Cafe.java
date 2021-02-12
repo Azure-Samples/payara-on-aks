@@ -69,7 +69,6 @@ public class Cafe implements Serializable {
     this.coffeeList =
         this.client
             .target(COFFEE_SERVICE)
-            .path("/")
             .request(MediaType.APPLICATION_JSON)
             .get(new GenericType<List<Coffee>>() {});
   }
