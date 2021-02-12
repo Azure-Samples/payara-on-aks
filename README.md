@@ -26,6 +26,7 @@ We will be using the fully managed Azure SQL offering for this sample.
 You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
 
   ```bash
+  RESOURCE_GROUP_NAME=payara-cafe-group-<your suffix>
   REGISTRY_NAME=payaracaferegistry<your suffix>
   az acr create --resource-group $RESOURCE_GROUP_NAME --name $REGISTRY_NAME --sku Basic --admin-enabled  
   ```
@@ -49,7 +50,6 @@ You should see `Login Succeeded` at the end of command output if you have logged
 You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
 
   ```bash
-  RESOURCE_GROUP_NAME=payara-cafe-group-<your suffix>
   CLUSTER_NAME=payara-cafe-cluster-<your suffix>
   az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME
   ```
