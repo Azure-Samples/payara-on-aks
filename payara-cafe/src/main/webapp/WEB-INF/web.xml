@@ -33,6 +33,6 @@
     <data-source>
         <name>java:global/jdbc/PayaraCafe</name>
         <class-name>com.microsoft.sqlserver.jdbc.SQLServerDriver</class-name>
-        <url>jdbc:sqlserver://${server.name}.database.windows.net:1433;database=payara-cafe-db;user=${login.name};password=${password}</url>        
+        <url>jdbc:sqlserver://${server.name}.database.windows.net:1433;database=payara-cafe-db;user=${login.name}@${server.name};password=${password}</url>
     </data-source>
 </web-app>
