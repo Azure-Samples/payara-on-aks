@@ -129,13 +129,23 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
   ```
 
   It may take a few minutes for the deployment to be completed. Wait until you see `2/2` under the `READY` column and `2` under the `AVAILABLE` column, hit `CTRL-C` to stop the `kubectl` watch process.
-* Get the External IP address of the Service, then the application will be accessible at `http://<External IP Address>/payara-cafe`:
+
+## Enable Session Affinity
+
+The sample application is stateful and highly available through Payara Kubernetes clustering. For this reason, we will need to enable App Gateway session affinity.
+
+* Go to the [Azure portal](http://portal.azure.com).
+* In the portal, go to 'All resources'. Find and click on the resource with `payara-cafe-gateway` as the name.
+* Open the HTTP settings panel. Find the setting with `payara-cafe` included in the name and click on it.
+* Enable Cookie based session affinity and hit Save.
+
+## Access the Application  
+  
+* Get the external IP address of the App Gateway Ingress, then the application will be accessible at `http://<Address>` (you can also get the address from the App Gateway overview panel in the portal):
 
   ```bash
-  kubectl get svc payara-cafe --watch
+  kubectl get ingress
   ```
-
-  It may take a few minutes for the load balancer to be created. When the external IP changes over from *pending* to a valid IP, just hit `Control-C` to exit.
 
 ## Deleting the Resources
 
