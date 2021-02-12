@@ -50,8 +50,9 @@ You should see `Login Succeeded` at the end of command output if you have logged
 You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
 
   ```bash
-  CLUSTER_NAME=payara-cafe-cluster-<your suffix>
-  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME
+  CLUSTER_NAME=payara-cafe-cluster
+  GATEWAY_NAME=payara-cafe-gateway
+  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME --network-plugin azure -a ingress-appgw --appgw-name $GATEWAY_NAME --appgw-subnet-prefix "10.2.0.0/16"
   ```
 
 ## Set up Kubernetes tooling

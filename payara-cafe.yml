@@ -36,9 +36,24 @@ kind: Service
 metadata:
   name: payara-cafe
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 8080
   selector:
     app: payara-cafe
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: payara-cafe
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: payara-cafe
+          servicePort: 80

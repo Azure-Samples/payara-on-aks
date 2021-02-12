@@ -2,16 +2,12 @@ package com.microsoft.azure.samples.payara.cafe.web.view;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.WebApplicationException;
@@ -30,8 +26,8 @@ public class Cafe implements Serializable {
   private static final long serialVersionUID = 1L;
   private static final Logger logger =
       Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+  private static final String COFFEE_SERVICE = "http://localhost:8080/rest/coffees";
 
-  private String baseUri;
   private transient Client client;
 
   @NotNull @NotEmpty protected String name;
@@ -61,25 +57,9 @@ public class Cafe implements Serializable {
   @PostConstruct
   private void init() {
     try {
-      InetAddress inetAddress =
-          InetAddress.getByName(
-              ((HttpServletRequest)
-                      FacesContext.getCurrentInstance().getExternalContext().getRequest())
-                  .getServerName());
-
-      baseUri =
-          FacesContext.getCurrentInstance().getExternalContext().getRequestScheme()
-              + "://"
-              + inetAddress.getHostName()
-              + ":"
-              + FacesContext.getCurrentInstance().getExternalContext().getRequestServerPort()
-              + "/payara-cafe/rest/coffees";
       this.client = ClientBuilder.newClient();
       this.getAllCoffees();
-    } catch (IllegalArgumentException
-        | NullPointerException
-        | WebApplicationException
-        | UnknownHostException ex) {
+    } catch (IllegalArgumentException | NullPointerException | WebApplicationException ex) {
       logger.severe("Processing of HTTP response failed.");
       ex.printStackTrace();
     }
@@ -88,7 +68,7 @@ public class Cafe implements Serializable {
   private void getAllCoffees() {
     this.coffeeList =
         this.client
-            .target(this.baseUri)
+            .target(COFFEE_SERVICE)
             .path("/")
             .request(MediaType.APPLICATION_JSON)
             .get(new GenericType<List<Coffee>>() {});
@@ -96,14 +76,17 @@ public class Cafe implements Serializable {
 
   public void addCoffee() {
     Coffee coffee = new Coffee(this.name, this.price);
-    this.client.target(baseUri).request(MediaType.APPLICATION_JSON).post(Entity.json(coffee));
+    this.client
+        .target(COFFEE_SERVICE)
+        .request(MediaType.APPLICATION_JSON)
+        .post(Entity.json(coffee));
     this.name = null;
     this.price = null;
     this.getAllCoffees();
   }
 
   public void removeCoffee(String coffeeId) {
-    this.client.target(baseUri).path(coffeeId).request().delete();
+    this.client.target(COFFEE_SERVICE).path(coffeeId).request().delete();
     this.getAllCoffees();
   }
 }
