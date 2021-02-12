@@ -113,5 +113,5 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
 Once you are done exploring the sample, you should delete the payara-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on payara-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription. The another option to delete Azure resources is using `az group delete`:
 
 ```bash
-az group delete --name payara-cafe-group-<your suffix> --yes --no-wait
+az group delete --name $RESOURCE_GROUP_NAME --yes --no-wait
 ```
