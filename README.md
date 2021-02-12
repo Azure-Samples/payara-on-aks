@@ -21,6 +21,34 @@ We will be using the fully managed Azure SQL offering for this sample.
 * Create and select a new resource group named payara-cafe-group-`<your suffix>` (the suffix could be your first name such as "jane"). Specify the Database name as payara-cafe-db. Create and select a new server. Specify the Server name to be payara-cafe-db-`<your suffix>`. Specify the Server admin login to be, e.g., azuresql. Specify the password. Hit Review + create. Hit 'Create'. It will take a moment for the database to deploy and be ready for use. Note your server name, admin login name and password.
 * In the portal, go to 'All resources'. Find and click on the resource with server name you specified before. Open the Firewalls and virtual networks panel. Enable access to Azure services and hit Save.
 
+## Enable App Gateway Ingress Controller
+
+For this sample, we will use Azure App Gateway as our Kubernetes Ingress Controller. This is still a preview feature that will become GA in the very short term. For now, you will need to specifically enable App Gatway as an Ingress Controller.
+
+* Install the preview extension using the following command:
+
+  ```bash
+  az extension add --name aks-preview
+  ```
+  
+* Register the AKS-IngressApplicationGatewayAddon feature flag by using the [az feature register](https://docs.microsoft.com/en-us/cli/azure/feature?view=azure-cli-latest#az-feature-register) command as shown in the following example:
+
+  ```bash
+  az feature register --name AKS-IngressApplicationGatewayAddon --namespace Microsoft.ContainerService
+  ```
+  
+* It will take some time for the status to show `Registered`. Please wait for this to happen. You can check the registration status by using the [az feature list](https://docs.microsoft.com/en-us/cli/azure/feature?view=azure-cli-latest#az-feature-register) command:
+
+  ```bash
+  az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/AKS-IngressApplicationGatewayAddon')].{Name:name,State:properties.state}"
+  ```
+
+* Refresh the registration of the Microsoft.ContainerService resource provider by using the [az provider register](https://docs.microsoft.com/en-us/cli/azure/provider?view=azure-cli-latest#az-provider-register) command:
+
+  ```bash
+  az provider register --namespace Microsoft.ContainerService
+  ```
+
 ## Set up an ACR instance
 
 You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
