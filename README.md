@@ -56,7 +56,6 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
 
 ## Set up Kubernetes tooling
 
-* You will now need to install the Azure CLI. [Here](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) are instructions on how to do that.
 * You will need to setup kubectl, the Kubernetes command-line client. Execute the following command to do so:
 
   ```bash
