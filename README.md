@@ -31,19 +31,19 @@ For this sample, we will use Azure App Gateway as our Kubernetes Ingress Control
   az extension add --name aks-preview
   ```
   
-* Register the AKS-IngressApplicationGatewayAddon feature flag by using the [az feature register](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az-feature-register) command as shown in the following example:
+* Register the AKS-IngressApplicationGatewayAddon feature flag by using the [az feature register](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az_feature_register) command as shown in the following example:
 
   ```bash
   az feature register --name AKS-IngressApplicationGatewayAddon --namespace Microsoft.ContainerService
   ```
   
-* It will take some time for the status to show `Registered`. Please wait for this to happen. You can check the registration status by using the [az feature list](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az-feature-register) command:
+* It will take some time for the status to show `Registered`. Please wait for this to happen. You can check the registration status by using the [az feature list](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az_feature_list) command:
 
   ```bash
   az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/AKS-IngressApplicationGatewayAddon')].{Name:name,State:properties.state}"
   ```
 
-* Refresh the registration of the Microsoft.ContainerService resource provider by using the [az provider register](https://docs.microsoft.com/cli/azure/provider?view=azure-cli-latest#az-provider-register) command:
+* Refresh the registration of the Microsoft.ContainerService resource provider by using the [az provider register](https://docs.microsoft.com/cli/azure/provider?view=azure-cli-latest#az_provider_register) command:
 
   ```bash
   az provider register --namespace Microsoft.ContainerService
