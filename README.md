@@ -9,7 +9,7 @@ This sample shows how you can deploy a Java application using Payara on the Azur
 * Install a Java SE implementation (for example, [Azul Zulu Java 8 LTS](https://www.azul.com/downloads/zulu-community/?version=java-8-lts&package=jdk)).
 * Install [Maven](https://maven.apache.org/download.cgi) 3.5.0 or higher.
 * Install [Docker](https://docs.docker.com/get-docker/) for your OS.
-* Install [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest&preserve-view=true) 2.0.75 or later. Make sure to sign in to the Azure CLI by using the [az login](https://docs.microsoft.com/en-us/cli/azure/reference-index?view=azure-cli-latest#az_login) command. To finish the authentication process, follow the steps displayed in your terminal. For additional sign-in options, see [Sign in with the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli).
+* Install [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest&preserve-view=true) 2.0.75 or later. Make sure to sign in to the Azure CLI by using the [az login](https://docs.microsoft.com/cli/azure/reference-index?view=azure-cli-latest#az_login) command. To finish the authentication process, follow the steps displayed in your terminal. For additional sign-in options, see [Sign in with the Azure CLI](https://docs.microsoft.com/cli/azure/authenticate-azure-cli).
 * Clone [this repository](https://github.com/Azure-Samples/payara-on-aks) to your local file system.
 
 ## Start Azure SQL
@@ -31,19 +31,19 @@ For this sample, we will use Azure App Gateway as our Kubernetes Ingress Control
   az extension add --name aks-preview
   ```
   
-* Register the AKS-IngressApplicationGatewayAddon feature flag by using the [az feature register](https://docs.microsoft.com/en-us/cli/azure/feature?view=azure-cli-latest#az-feature-register) command as shown in the following example:
+* Register the AKS-IngressApplicationGatewayAddon feature flag by using the [az feature register](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az-feature-register) command as shown in the following example:
 
   ```bash
   az feature register --name AKS-IngressApplicationGatewayAddon --namespace Microsoft.ContainerService
   ```
   
-* It will take some time for the status to show `Registered`. Please wait for this to happen. You can check the registration status by using the [az feature list](https://docs.microsoft.com/en-us/cli/azure/feature?view=azure-cli-latest#az-feature-register) command:
+* It will take some time for the status to show `Registered`. Please wait for this to happen. You can check the registration status by using the [az feature list](https://docs.microsoft.com/cli/azure/feature?view=azure-cli-latest#az-feature-register) command:
 
   ```bash
   az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/AKS-IngressApplicationGatewayAddon')].{Name:name,State:properties.state}"
   ```
 
-* Refresh the registration of the Microsoft.ContainerService resource provider by using the [az provider register](https://docs.microsoft.com/en-us/cli/azure/provider?view=azure-cli-latest#az-provider-register) command:
+* Refresh the registration of the Microsoft.ContainerService resource provider by using the [az provider register](https://docs.microsoft.com/cli/azure/provider?view=azure-cli-latest#az-provider-register) command:
 
   ```bash
   az provider register --namespace Microsoft.ContainerService
@@ -51,7 +51,7 @@ For this sample, we will use Azure App Gateway as our Kubernetes Ingress Control
 
 ## Set up an ACR instance
 
-You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
+You will need to next create an Azure Container Registry (ACR) instance to publish Docker images. Use the [az acr create](https://docs.microsoft.com/cli/azure/acr?view=azure-cli-latest#az_acr_create) command to create the ACR instance:
 
   ```bash
   RESOURCE_GROUP_NAME=payara-cafe-group-<your suffix>
@@ -75,13 +75,15 @@ You should see `Login Succeeded` at the end of command output if you have logged
 
 ## Setup the AKS cluster
 
-You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
+You will now need to create the AKS cluster. Use the [az aks create](https://docs.microsoft.com/cli/azure/aks?view=azure-cli-latest#az_aks_create) command to create an AKS cluster. This will take several minutes to complete:
 
-  ```bash
-  CLUSTER_NAME=payara-cafe-cluster
-  GATEWAY_NAME=payara-cafe-gateway
-  az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME --network-plugin azure -a ingress-appgw --appgw-name $GATEWAY_NAME --appgw-subnet-prefix "10.2.0.0/16"
-  ```
+```bash
+CLUSTER_NAME=payara-cafe-cluster
+GATEWAY_NAME=payara-cafe-gateway
+az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME --network-plugin azure -a ingress-appgw --appgw-name $GATEWAY_NAME --appgw-subnet-prefix "10.2.0.0/16"
+```
+
+Note: You need to be an **owner of the subscription** in order to successfully execute the command, which will automatically attach the ACR instance to the created AKS cluster. If it's not the case, use an image pull secret to enable the AKS cluster to pull the image from the ACR instance instead. You can refer to [this guide](https://docs.microsoft.com/azure/aks/howto-deploy-java-liberty-app#create-an-aks-cluster) to understand more about this approach.
 
 ## Set up Kubernetes tooling
 
@@ -90,6 +92,7 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
   ```bash
   az aks install-cli
   ```
+
 * You will then connect kubectl to the AKS cluster you created. To do so, run the following command:
 
   ```bash
@@ -114,7 +117,7 @@ You will now need to create the AKS cluster. Use the [az aks create](https://doc
   ```bash
   az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .  
   ```
- 
+
 * Replace the `${login.server}` value with your ACR server URL (stored in the $LOGIN_SERVER variable used previously) in `payara-cafe.yml` file.
 * You can now deploy the application:
 
@@ -141,15 +144,15 @@ The sample application is stateful and highly available through Payara Kubernete
 
 ## Access the Application  
   
-* Get the external IP address of the App Gateway Ingress, then the application will be accessible at `http://<Address>` (you can also get the address from the App Gateway overview panel in the portal):
+Get the external IP address of the App Gateway Ingress, then the application will be accessible at `http://<Address>` (you can also get the address from the App Gateway overview panel in the portal):
 
-  ```bash
-  kubectl get ingress
-  ```
+```bash
+kubectl get ingress
+```
   
-  It may take a moment for the App Gateway to properly connect with the backend pool. It is a good idea to check the Backend health panel for the App Gateway in the portal.
+It may take a moment for the App Gateway to properly connect with the backend pool. It is a good idea to check the Backend health panel for the App Gateway in the portal.
 
-## Deleting the Resources
+## Delete the Resources
 
 Once you are done exploring the sample, you should delete the payara-cafe-group-`<your suffix>` resource group. You can do this by going to the portal, going to resource groups, finding and clicking on payara-cafe-group-`<your suffix>` and hitting delete. This is especially important if you are not using a free subscription. The another option to delete Azure resources is using `az group delete`:
 
