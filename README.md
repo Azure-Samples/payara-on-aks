@@ -115,7 +115,7 @@ Note: You need to be an **owner of the subscription** in order to successfully e
 * Build a Docker image and push the image to ACR:
 
   ```bash
-  az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .  
+  az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .
   ```
 
 * Replace the `${login.server}` value with your ACR server URL (stored in the $LOGIN_SERVER variable used previously) in `payara-cafe.yml` file.
