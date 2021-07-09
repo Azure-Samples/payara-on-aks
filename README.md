@@ -52,7 +52,7 @@ You will now need to create the AKS cluster. For this sample, we will use Azure 
 ```bash
 CLUSTER_NAME=payara-cafe-cluster
 GATEWAY_NAME=payara-cafe-gateway
-az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME --network-plugin azure -a ingress-appgw --appgw-name $GATEWAY_NAME --appgw-subnet-prefix "10.2.0.0/16"
+az aks create --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --generate-ssh-keys --enable-managed-identity --attach-acr $REGISTRY_NAME --network-plugin azure -a ingress-appgw --appgw-name $GATEWAY_NAME --appgw-subnet-cidr "10.2.0.0/16"
 ```
 
 Note: You need to be an **owner of the subscription** in order to successfully execute the command, which will automatically attach the ACR instance to the created AKS cluster. If it's not the case, use an image pull secret to enable the AKS cluster to pull the image from the ACR instance instead. You can refer to [this guide](https://docs.microsoft.com/azure/aks/howto-deploy-java-liberty-app#create-an-aks-cluster) to understand more about this approach.
