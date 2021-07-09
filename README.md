@@ -90,7 +90,7 @@ Note: You need to be an **owner of the subscription** in order to successfully e
   az acr build -t payara-cafe:v1 -r $REGISTRY_NAME .  
   ```
 
-* Replace the `${login.server}` value with your ACR server URL (stored in the $LOGIN_SERVER variable used previously) in `payara-cafe.yml` file.
+* Replace the `${login.server}` value in the `payara-cafe.yml` file with your ACR server URL (stored in the $LOGIN_SERVER variable used previously).
 * You can now deploy the application:
 
   ```bash
